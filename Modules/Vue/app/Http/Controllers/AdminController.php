@@ -3,19 +3,21 @@
 namespace Modules\Vue\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-class VueController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('Post/Index');
+        return view('vue::index');
     }
 
     /**
@@ -23,17 +25,19 @@ class VueController extends Controller
      */
     public function create()
     {
-
-        return Inertia::render('Post:Create');
+        return view('vue::create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Post $post): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        $post->create($request->all());
-        return redirect()->route('post.create');
+       $request->validate([
+           'tittle'=>'required',
+           'content'=>'required'
+       ]);
+
     }
 
     /**
@@ -41,8 +45,7 @@ class VueController extends Controller
      */
     public function show($id)
     {
-
-        return Inertia::render('Post/Show');
+        return view('vue::show');
     }
 
     /**
@@ -56,18 +59,10 @@ class VueController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id): RedirectResponse
     {
-        $request->validate([
-            'title' => 'required',
-            'content' => 'required',
-        ]);
-
-        $post->update($request->all());
-
-        return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
+        //
     }
-
 
     /**
      * Remove the specified resource from storage.

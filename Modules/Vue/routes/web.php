@@ -16,4 +16,7 @@ use Modules\Vue\Http\Controllers\VueController;
 
 Route::group(['prefix' => ''], function () {
     Route::get('/', [VueController::class, 'index'])->name('dashboard');
+    Route::get('/post',[VueController::class,'show'])->name('post.show');
+    Route::get('/create',[VueController::class,'create'])->name('post.create');
+    Route::post('/create',[VueController::class,'create'])->name('post.store');
 });

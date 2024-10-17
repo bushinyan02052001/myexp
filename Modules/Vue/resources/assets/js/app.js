@@ -2,7 +2,6 @@ import { createApp, h } from 'vue';
 import { createInertiaApp, Link } from '@inertiajs/vue3';
 import {route, ZiggyVue} from 'ziggy-js';
 import { Ziggy } from './ziggy';
-
 createInertiaApp({
     resolve: name => {
         const pages = import.meta.glob('@modules/**/*.vue', { eager: true });
